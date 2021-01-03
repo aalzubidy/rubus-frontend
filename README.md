@@ -1,2 +1,2 @@
 # rubus-frontend
-Rubus SLR tool frontend
+Rubus SLR Tool - ReactJS frontend code
