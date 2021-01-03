@@ -1,6 +1,6 @@
 {
   "name": "rubus",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Rubus SLR Tool - ReactJS frontend code",
   "private": true,
   "dependencies": {
@@ -20,16 +20,22 @@
     "preinstall": "node installGitHooks.js"
   },
   "eslintConfig": {
-    "extends": ["react-app"],
+    "extends": [
+      "react-app"
+    ],
     "rules": {
       "comma-dangle": "off"
     },
-    "overrides": [{
-      "files": ["**/*.ts?(x)"],
-      "rules": {
-        "comma-dangle": "off"
+    "overrides": [
+      {
+        "files": [
+          "**/*.ts?(x)"
+        ],
+        "rules": {
+          "comma-dangle": "off"
+        }
       }
-    }]
+    ]
   },
   "browserslist": {
     "production": [
