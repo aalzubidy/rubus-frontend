@@ -20,10 +20,16 @@
     "preinstall": "node installGitHooks.js"
   },
   "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
+    "extends": ["react-app"],
+    "rules": {
+      "comma-dangle": "off"
+    },
+    "overrides": [{
+      "files": ["**/*.ts?(x)"],
+      "rules": {
+        "comma-dangle": "off"
+      }
+    }]
   },
   "browserslist": {
     "production": [
