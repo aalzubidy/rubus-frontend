@@ -24,7 +24,8 @@
       "react-app"
     ],
     "rules": {
-      "comma-dangle": "off"
+      "comma-dangle": "off",
+      "no-control-regex": "off"
     },
     "overrides": [
       {
