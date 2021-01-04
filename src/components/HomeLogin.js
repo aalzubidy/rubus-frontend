@@ -33,7 +33,7 @@ class HomeLogin extends Component {
         return (
             <div>
                 <button onClick={this.setShowLoginForm}>{this.state.showLoginForm ? 'Register Form' : 'Login Form'}</button>
-                {this.state.showLoginForm ? <LoginForm emailValidation={this.emailValidation} /> : <RegisterForm />}
+                {this.state.showLoginForm ? <LoginForm emailValidation={this.emailValidation} /> : <RegisterForm emailValidation={this.emailValidation}/>}
             </div>
         );
     }
