@@ -1,48 +1,33 @@
-import React, { Component } from 'react'
+import React, { Component, useState } from 'react'
+import useInputState from '../hooks/useInputState';
 
-class LoginForm extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            email: '',
-            password: '',
-            validEmail: false
-        }
-    }
+const LoginForm = (props) => {
+    const [validEmail, setValidEmail] = useState(false);
+    const [email, updateEmail, resetEmail] = useInputState('');
+    const [password, updatePassword, resetPassword] = useInputState('');
 
-    handleOnChange = (evt) => {
-        this.setState({
-            [evt.target.name]: evt.target.value
-        });
-
-        if (evt.target.name === 'email') {
-            this.setState(() => {
-                return {
-                    validEmail: this.props.emailValidation(evt.target.value)
-                }
-            })
-        }
-    }
-
-    handleSubmit = (evt) => {
+    const handleSubmit = (evt) => {
         evt.preventDefault();
         // axois to login
         console.log(this.state);
     }
 
-    render() {
-        return (
-            <div>
-                <form onSubmit={this.handleSubmit}>
-                    <input type='text' value={this.state.email} name='email' onChange={this.handleOnChange} placeholder='Email...' />
-                    <br />
-                    <input type='password' value={this.state.password} name='password' onChange={this.handleOnChange} placeholder='Password...' />
-                    <br />
-                    <button disabled={!this.state.validEmail}>Login</button>
-                </form>
-            </div>
-        );
+    const handleOnChangeEmail = (evt) => {
+        updateEmail(evt);
+        setValidEmail(props.emailValidation(email));
     }
+
+    return (
+        <div>
+            <form onSubmit={handleSubmit}>
+                <input type='text' name='email' value={email} onChange={handleOnChangeEmail} placeholder='Email ...' />
+                <br />
+                <input type='password' name='password' value={password} onChange={updatePassword} placeholder='Password ...' />
+                <br />
+                <button disabled={!validEmail}>Login</button>
+            </form>
+        </div>
+    );
 }
 
 export default LoginForm;
