@@ -14,7 +14,7 @@ export function AuthProvider(props) {
     const logoutEventName = 'rubus-logout';
 
     // Urls
-    const baseUrl = 'localhost:3030';
+    const baseUrl = 'http://localhost:3030';
     const renewTokenUrl = '/renewTokenByCookie';
     const loginUrl = '/login';
     const logoutUrl = '/logout';
@@ -22,7 +22,7 @@ export function AuthProvider(props) {
 
     // Timeout configurations
     const tokenTimeOutMinutes = 28;
-    const tokenTimeOutId = null;
+    let tokenTimeOutId = null;
 
     // Cancel renewing token timeout
     const cancelRenewTokenSchedule = () => {
@@ -106,11 +106,11 @@ export function AuthProvider(props) {
                 return (loginResponse.response['data']['accessToken']);
             } else {
                 clearToken();
-                throw { 'error': 'could not login' };
+                throw new Error('could not login');
             }
         } catch (error) {
             clearToken();
-            throw { 'error': 'could not login' };
+            throw error;
         }
     };
 
@@ -142,11 +142,11 @@ export function AuthProvider(props) {
                 }
             });
 
-            if (registerResponse && registerResponse.response && registerResponse.response['id']) {
-                return (registerResponse.response['id']);
+            if (registerResponse && registerResponse.data && registerResponse.data['data']) {
+                return (registerResponse.data['data']['id']);
             } else {
                 clearToken();
-                throw { 'error': 'could not register user' };
+                throw new Error('could not register user');
             }
         } catch (error) {
             clearToken();
@@ -156,7 +156,7 @@ export function AuthProvider(props) {
 
     return (
         <AuthContext.Provider value={token}>
-            <AuthActionsContext.Provider value={getToken, login, logout, register, getUser}>
+            <AuthActionsContext.Provider value={{getToken, login, logout, register, getUser}}>
                 {props.children}
             </AuthActionsContext.Provider>
         </AuthContext.Provider>

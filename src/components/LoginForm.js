@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react'
+import React, { useState } from 'react'
 import useInputState from '../hooks/useInputState';
 
 const LoginForm = (props) => {

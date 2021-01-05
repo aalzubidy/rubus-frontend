@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
-export default (initVla) => {
-    const [value, setValue] = useState(initVla);
+const useInputState = function (initVal) {
+    const [value, setValue] = useState(initVal);
 
     const handleChange = (evt) => {
         setValue(evt.target.value);
@@ -12,3 +12,5 @@ export default (initVla) => {
 
     return [value, handleChange, reset];
 }
+
+export default useInputState;

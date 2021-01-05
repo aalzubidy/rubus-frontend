@@ -33,7 +33,7 @@ const RegisterForm = (props) => {
         try {
             const results = await authActions.register(email, password, fullName, organization);
             if (results) {
-                setRegisterationMessage(`${fullName || email} Registered Successfully!`);
+                setRegisterationMessage(`${email} registered successfully!`);
             }
         } catch (error) {
             setRegisterationMessage(`Could not register user :( error details: ${error}`);
@@ -46,14 +46,14 @@ const RegisterForm = (props) => {
                 <input type='text' name='email' value={email} onChange={handleOnChangeEmail} placeholder='Email ...' required />
                 <br />
                 <input type={showPassword ? 'text' : 'password'} name='password' value={password} onChange={updatePassword} placeholder='Password ...' required />
-                <button onClick={() => setShowPassword(!showPassword)}>Show Password</button>
+                <button type='button' onClick={() => setShowPassword(!showPassword)}>Show Password</button>
                 <br />
                 <input type='text' name='fullName' value={fullName} onChange={updateFullName} placeholder='Full name ...' />
                 <br />
                 <input type='text' name='organization' value={organization} onChange={updateOrganization} placeholder='Organization ...' />
                 <br />
-                <button onClick={resetFields}>Reset Form</button>
-                <button disabled={!validEmail}>Register</button>
+                <button onClick={resetFields} type='reset'>Reset Form</button>
+                <button disabled={!validEmail} type='submit'>Register</button>
                 {registerationMessage ? <h1>{registerationMessage}</h1> : ''}
             </form>
         </div>
