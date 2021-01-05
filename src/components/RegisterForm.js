@@ -1,11 +1,14 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import useInputState from '../hooks/useInputState';
+import { AuthActionsContext } from '../contexts/AuthContext';
 
 const RegisterForm = (props) => {
     // Validate email and password
     const [validEmail, setValidEmail] = useState(false);
-
     const [showPassword, setShowPassword] = useState(false);
+    const [registerationMessage, setRegisterationMessage] = useState(null);
+
+    const authActions = useContext(AuthActionsContext);
 
     // Form inputs
     const [email, updateEmail, resetEmail] = useInputState('');
@@ -25,10 +28,17 @@ const RegisterForm = (props) => {
         resetOrganization();
     };
 
-    const handleSubmit = (evt) => {
+    const handleSubmit = async (evt) => {
         evt.preventDefault();
-        // axois to login
-    }
+        try {
+            const results = await authActions.register(email, password, fullName, organization);
+            if (results) {
+                setRegisterationMessage(`${fullName || email} Registered Successfully!`);
+            }
+        } catch (error) {
+            setRegisterationMessage(`Could not register user :( error details: ${error}`);
+        }
+    };
 
     return (
         <div>
@@ -44,6 +54,7 @@ const RegisterForm = (props) => {
                 <br />
                 <button onClick={resetFields}>Reset Form</button>
                 <button disabled={!validEmail}>Register</button>
+                {registerationMessage ? <h1>{registerationMessage}</h1> : ''}
             </form>
         </div>
     );

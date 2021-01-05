@@ -1,24 +1,11 @@
-import React, { Component } from 'react'
+import React, { useState } from 'react'
 import LoginForm from './LoginForm';
 import RegisterForm from './RegisterForm';
 
-class HomeLogin extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            showLoginForm: true
-        }
-    }
+const HomeLogin = function HomeLogin(props) {
+    const [showLoginForm, setShowLoginForm] = useState(true);
 
-    setShowLoginForm = () => {
-        this.setState((st) => {
-            return {
-                showLoginForm: !st.showLoginForm
-            }
-        })
-    }
-
-    emailValidation = (email) => {
+    const emailValidation = (email) => {
         let validEmail = false;
         email = email ? email.trim().toLowerCase() : email;
         if (email) {
@@ -29,14 +16,12 @@ class HomeLogin extends Component {
         return validEmail
     }
 
-    render() {
-        return (
-            <div>
-                <button onClick={this.setShowLoginForm}>{this.state.showLoginForm ? 'Register Form' : 'Login Form'}</button>
-                {this.state.showLoginForm ? <LoginForm emailValidation={this.emailValidation} /> : <RegisterForm emailValidation={this.emailValidation}/>}
-            </div>
-        );
-    }
+    return (
+        <div>
+            <button onClick={() => setShowLoginForm(!showLoginForm)}>{showLoginForm ? 'Show Register Form' : 'Show Login Form'}</button>
+            {showLoginForm ? <LoginForm emailValidation={emailValidation} /> : <RegisterForm emailValidation={emailValidation} />}
+        </div>
+    )
 }
 
 export default HomeLogin;
