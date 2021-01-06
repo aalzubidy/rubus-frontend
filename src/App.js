@@ -1,13 +1,13 @@
-import logo from './logo.svg';
-import './App.css';
-import HomeLogin from './components/HomeLogin';
+// import logo from './logo.svg';
+// import './App.css';
+import RubusApp from './RubusApp';
 import { AuthProvider } from './contexts/AuthContext';
 
 function App() {  
   return (
     <div className="App">
       <AuthProvider>
-        <HomeLogin />
+        <RubusApp />
       </AuthProvider>
     </div>
   );
