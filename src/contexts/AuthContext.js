@@ -54,14 +54,12 @@ export function AuthProvider(props) {
         if (!renewTokenInProgress) {
             try {
                 setRenewTokenInProgress(true);
-                let renewTokenResponse = await axios({
-                    method: 'post',
-                    url: baseUrl + renewTokenUrl,
+                const renewTokenResponse = await axios.post(baseUrl + renewTokenUrl, {}, {
                     withCredentials: true
-                })
+                });
 
-                if (renewTokenResponse && renewTokenResponse.response && renewTokenResponse.response['data']) {
-                    setAccessToken(renewTokenResponse.response['data']['accessToken']);
+                if (renewTokenResponse && renewTokenResponse.data && renewTokenResponse.data['data']) {
+                    setAccessToken(renewTokenResponse.data['data']['accessToken']);
                     setRenewTokenInProgress(false);
                 } else {
                     setRenewTokenInProgress(false);
@@ -76,11 +74,12 @@ export function AuthProvider(props) {
 
     // Call renewToken automatically before token expires
     const scheduleRenewToken = () => {
-        tokenTimeOutId = window.setTimeout(
-            renewToken(),
-            tokenTimeOutMinutes * 60 * 1000
-        );
-    };
+        tokenTimeOutId = setTimeout(() => {
+            renewToken()
+        }, 10000);
+    }
+
+    // tokenTimeOutMinutes * 60 * 1000
 
     // Disconnect all session
     window.addEventListener('storage', (event) => {
@@ -92,18 +91,19 @@ export function AuthProvider(props) {
     // Login and set access token
     const login = async (email, password) => {
         try {
-            const loginResponse = await axios({
-                method: 'post',
-                url: baseUrl + loginUrl,
-                data: {
-                    email,
-                    password
-                }
-            });
+            const loginResponse = await axios.post(baseUrl + loginUrl, {
+                email,
+                password
+            }, {
+                withCredentials: true
+            }
+            );
 
-            if (loginResponse && loginResponse.response && loginResponse.response['data']) {
-                setAccessToken(loginResponse.response['data']['accessToken']);
-                return (loginResponse.response['data']['accessToken']);
+            console.log(loginResponse);
+
+            if (loginResponse && loginResponse.data && loginResponse.data['data']) {
+                setAccessToken(loginResponse.data['data']['accessToken']);
+                return (loginResponse.data['data']['accessToken']);
             } else {
                 clearToken();
                 throw new Error('could not login');
@@ -156,7 +156,7 @@ export function AuthProvider(props) {
 
     return (
         <AuthContext.Provider value={token}>
-            <AuthActionsContext.Provider value={{getToken, login, logout, register, getUser}}>
+            <AuthActionsContext.Provider value={{ getToken, login, logout, register, getUser }}>
                 {props.children}
             </AuthActionsContext.Provider>
         </AuthContext.Provider>
