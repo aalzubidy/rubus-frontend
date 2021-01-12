@@ -156,7 +156,7 @@ export function AuthProvider(props) {
 
     return (
         <AuthContext.Provider value={token}>
-            <AuthActionsContext.Provider value={{ getToken, login, logout, register, getUser }}>
+            <AuthActionsContext.Provider value={{ getToken, login, logout, register, getUser, renewToken }}>
                 {props.children}
             </AuthActionsContext.Provider>
         </AuthContext.Provider>
