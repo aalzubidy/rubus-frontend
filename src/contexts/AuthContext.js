@@ -59,15 +59,18 @@ export function AuthProvider(props) {
                 });
 
                 if (renewTokenResponse && renewTokenResponse.data && renewTokenResponse.data['data']) {
-                    setAccessToken(renewTokenResponse.data['data']['accessToken']);
+                    await setAccessToken(renewTokenResponse.data['data']['accessToken']);
                     setRenewTokenInProgress(false);
+                    return renewTokenResponse.data['data']['accessToken'];
                 } else {
                     setRenewTokenInProgress(false);
                     clearToken();
+                    return false;
                 }
             } catch (error) {
                 setRenewTokenInProgress(false);
                 clearToken();
+                throw error;
             }
         }
     };

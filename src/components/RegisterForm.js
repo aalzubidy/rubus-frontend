@@ -17,8 +17,7 @@ const RegisterForm = (props) => {
     const [organization, updateOrganization, resetOrganization] = useInputState('');
 
     const handleOnChangeEmail = (evt) => {
-        updateEmail(evt);
-        setValidEmail(props.emailValidation(email));
+        updateEmail(evt, setValidEmail(props.emailValidation(evt.target.value)));
     }
 
     const resetFields = () => {

@@ -1,17 +1,33 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { Redirect, useLocation, useHistory } from "react-router-dom";
 import useInputState from '../hooks/useInputState';
-import { AuthActionsContext } from '../contexts/AuthContext';
+import { AuthContext, AuthActionsContext } from '../contexts/AuthContext';
 
 const LoginForm = (props) => {
     const authActions = useContext(AuthActionsContext);
+    const token = useContext(AuthContext);
     const [validEmail, setValidEmail] = useState(false);
     const [email, updateEmail, resetEmail] = useInputState('');
     const [password, updatePassword, resetPassword] = useInputState('');
     const [loginMessage, setLoginMessage] = useState(null);
-    const [redirectReady, setRedirectReday] = useState(false);
+    const [redirectReady, setRedirectReday] = useState('initialized');
     const { state } = useLocation();
     const history = useHistory();
+
+    useEffect(() => {
+        new Promise((res, rej) => {
+            if (!token) {
+                const results = authActions.renewToken();
+                results ? res(results) : rej(false);
+            } else {
+                res(token);
+            }
+        }).then((results) => {
+            results ? setRedirectReday(true) : setRedirectReday(false);
+        }).catch((error) => {
+            setRedirectReday(false);
+        });
+    }, []);
 
     const handleSubmit = async (evt) => {
         evt.preventDefault();
@@ -28,11 +44,14 @@ const LoginForm = (props) => {
     }
 
     const handleOnChangeEmail = (evt) => {
-        updateEmail(evt);
-        setValidEmail(props.emailValidation(email));
+        updateEmail(evt, setValidEmail(props.emailValidation(evt.target.value)));
     }
 
-    if(redirectReady){
+    if (redirectReady === 'initialized') {
+        return <h4>Loading ...</h4>
+    }
+
+    if (redirectReady === true) {
         // return <Redirect to={state?.from || '/home'} />
         state ? history.push(state.from) : history.push('/home');
     }
