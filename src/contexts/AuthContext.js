@@ -21,7 +21,7 @@ export function AuthProvider(props) {
     const registerUrl = '/register';
 
     // Timeout configurations
-    const tokenTimeOutMinutes = 28;
+    const tokenTimeOutMS = 10000;
     let tokenTimeOutId = null;
 
     // Cancel renewing token timeout
@@ -79,7 +79,7 @@ export function AuthProvider(props) {
     const scheduleRenewToken = () => {
         tokenTimeOutId = setTimeout(() => {
             renewToken()
-        }, 10000);
+        }, tokenTimeOutMS);
     }
 
     // tokenTimeOutMinutes * 60 * 1000
@@ -117,11 +117,20 @@ export function AuthProvider(props) {
         }
     };
 
-    /**
-     * @todo
-     */
+    // Logout user from backend and front end
     const logout = async () => {
-        clearToken();
+        try {
+            await axios.delete(baseUrl + logoutUrl, {
+                headers: {
+                    token
+                }
+            });
+            clearToken();
+            return ('Logged out successful');
+        } catch (error) {
+            clearToken();
+            throw new Error('Could not logout from backend');
+        }
     };
 
     /**

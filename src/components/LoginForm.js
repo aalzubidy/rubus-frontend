@@ -7,8 +7,8 @@ const LoginForm = (props) => {
     const authActions = useContext(AuthActionsContext);
     const token = useContext(AuthContext);
     const [validEmail, setValidEmail] = useState(false);
-    const [email, updateEmail, resetEmail] = useInputState('');
-    const [password, updatePassword, resetPassword] = useInputState('');
+    const [email, updateEmail] = useInputState('');
+    const [password, updatePassword] = useInputState('');
     const [loginMessage, setLoginMessage] = useState(null);
     const [redirectReady, setRedirectReday] = useState('initialized');
     const { state } = useLocation();

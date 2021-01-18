@@ -27,7 +27,8 @@
     ],
     "rules": {
       "comma-dangle": "off",
-      "no-control-regex": "off"
+      "no-control-regex": "off",
+      "react-hooks/exhaustive-deps": "off"
     },
     "overrides": [
       {
