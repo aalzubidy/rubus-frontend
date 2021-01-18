@@ -23,7 +23,11 @@ const LoginForm = (props) => {
                 res(token);
             }
         }).then((results) => {
-            results ? setRedirectReday(true) : setRedirectReday(false);
+            if (results) {
+                state ? history.push(state.from) : history.push('/home');
+            } else {
+                setRedirectReday(false);
+            }
         }).catch((error) => {
             setRedirectReday(false);
         });
@@ -52,8 +56,8 @@ const LoginForm = (props) => {
     }
 
     if (redirectReady === true) {
-        // return <Redirect to={state?.from || '/home'} />
-        state ? history.push(state.from) : history.push('/home');
+        return <Redirect to={state?.from || '/home'} />
+        // state ? history.push(state.from) : history.push('/home');
     }
 
     return (
