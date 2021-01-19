@@ -1,6 +1,6 @@
 {
   "name": "rubus",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "Rubus SLR Tool - ReactJS frontend code",
   "private": true,
   "dependencies": {
