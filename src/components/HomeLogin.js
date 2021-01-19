@@ -6,7 +6,7 @@ import {AuthContext} from '../contexts/AuthContext';
 const HomeLogin = function HomeLogin(props) {
     const [showLoginForm, setShowLoginForm] = useState(true);
     
-    const token = useContext(AuthContext);
+    const {token} = useContext(AuthContext);
 
     const emailValidation = (email) => {
         let validEmail = false;

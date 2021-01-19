@@ -5,7 +5,7 @@ import { AuthContext, AuthActionsContext } from '../contexts/AuthContext';
 
 const LoginForm = (props) => {
     const authActions = useContext(AuthActionsContext);
-    const token = useContext(AuthContext);
+    const {token} = useContext(AuthContext);
     const [validEmail, setValidEmail] = useState(false);
     const [email, updateEmail] = useInputState('');
     const [password, updatePassword] = useInputState('');

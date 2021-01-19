@@ -9,6 +9,7 @@ export function AuthProvider(props) {
     // Dynamic
     const [token, setToken] = useState(null);
     const [renewTokenInProgress, setRenewTokenInProgress] = useState(false);
+    const [user, setUser] = useState(null);
 
     // Static
     const logoutEventName = 'rubus-logout';
@@ -19,6 +20,7 @@ export function AuthProvider(props) {
     const loginUrl = '/login';
     const logoutUrl = '/logout';
     const registerUrl = '/register';
+    const getUserUrl = '/user';
 
     // Timeout configurations
     const tokenTimeOutMS = 10000;
@@ -38,6 +40,7 @@ export function AuthProvider(props) {
 
     // Set in memory token
     const setAccessToken = (accessToken) => {
+        getUser(accessToken);
         setToken(accessToken);
         scheduleRenewToken();
     };
@@ -82,8 +85,6 @@ export function AuthProvider(props) {
         }, tokenTimeOutMS);
     }
 
-    // tokenTimeOutMinutes * 60 * 1000
-
     // Disconnect all session
     window.addEventListener('storage', (event) => {
         if (event.key === logoutEventName) {
@@ -101,8 +102,6 @@ export function AuthProvider(props) {
                 withCredentials: true
             }
             );
-
-            console.log(loginResponse);
 
             if (loginResponse && loginResponse.data && loginResponse.data['data']) {
                 setAccessToken(loginResponse.data['data']['accessToken']);
@@ -133,11 +132,22 @@ export function AuthProvider(props) {
         }
     };
 
-    /**
-     * @todo
-     */
-    const getUser = async () => {
-        return 'not implemented';
+    // Get user information
+    const getUser = async (accessToken) => {
+        try {
+            if (user) {
+                return user;
+            } else {
+                const userResponse = await axios.get(baseUrl + getUserUrl, { headers: { token: accessToken } });
+                if (userResponse.data) {
+                    setUser(userResponse.data.data);
+                } else {
+                    setUser(null);
+                }
+            }
+        } catch (error) {
+            setUser(null);
+        }
     };
 
     // Register a new user and return its id
@@ -167,8 +177,8 @@ export function AuthProvider(props) {
     };
 
     return (
-        <AuthContext.Provider value={token}>
-            <AuthActionsContext.Provider value={{ getToken, login, logout, register, getUser, renewToken }}>
+        <AuthContext.Provider value={{ token, user }}>
+            <AuthActionsContext.Provider value={{ getToken, login, logout, register, renewToken }}>
                 {props.children}
             </AuthActionsContext.Provider>
         </AuthContext.Provider>
