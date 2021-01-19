@@ -1,6 +1,6 @@
 {
   "name": "rubus",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "Rubus SLR Tool - ReactJS frontend code",
   "private": true,
   "dependencies": {
@@ -27,7 +27,8 @@
     ],
     "rules": {
       "comma-dangle": "off",
-      "no-control-regex": "off"
+      "no-control-regex": "off",
+      "react-hooks/exhaustive-deps": "off"
     },
     "overrides": [
       {
