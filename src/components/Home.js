@@ -1,6 +1,5 @@
 import React from 'react';
 import { withRouter, useHistory } from "react-router-dom";
-import Navbar from '../Navbar';
 
 const Home = () => {
     const history = useHistory();
@@ -12,7 +11,6 @@ const Home = () => {
 
     return (
         <div>
-            <Navbar /> <br/><br/><br/><br/>
             <button onClick={handleOnClick} name="queryConverter">Query Converter</button> <br /><br />
             <button onClick={handleOnClick} name="searchArticles">Search Articles</button> <br /><br />
             <button onClick={handleOnClick} name="projectArticles">Project's Articles</button> <br /><br />
