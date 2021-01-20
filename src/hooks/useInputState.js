@@ -9,8 +9,11 @@ const useInputState = function (initVal) {
     const reset = () => {
         setValue('');
     };
+    const overwrite = (val) => {
+        setValue(val);
+    }
 
-    return [value, handleChange, reset];
+    return [value, handleChange, reset, overwrite];
 }
 
 export default useInputState;

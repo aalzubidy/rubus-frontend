@@ -23,7 +23,7 @@ export function AuthProvider(props) {
     const getUserUrl = '/user';
 
     // Timeout configurations
-    const tokenTimeOutMS = 10000;
+    const tokenTimeOutMS = 9 * 60 * 1000;
     let tokenTimeOutId = null;
 
     // Cancel renewing token timeout
@@ -48,6 +48,7 @@ export function AuthProvider(props) {
     // Delete token for logout
     const clearToken = () => {
         setToken(null);
+        setUser(null);
         cancelRenewTokenSchedule();
         window.localStorage.setItem(logoutEventName, Date.now());
     };
@@ -135,15 +136,16 @@ export function AuthProvider(props) {
     // Get user information
     const getUser = async (accessToken) => {
         try {
-            if (user) {
-                return user;
-            } else {
-                const userResponse = await axios.get(baseUrl + getUserUrl, { headers: { token: accessToken } });
-                if (userResponse.data) {
-                    setUser(userResponse.data.data);
+            const userResponse = await axios.get(baseUrl + getUserUrl, { headers: { token: accessToken } });
+            if (userResponse.data) {
+                const newUser = userResponse.data.data;
+                if (user && newUser && newUser.id === user.id && newUser.name === user.name && newUser.email === user.email && newUser.organization === user.organization) {
+                    return user;
                 } else {
-                    setUser(null);
+                    setUser(newUser);
                 }
+            } else {
+                setUser(null);
             }
         } catch (error) {
             setUser(null);

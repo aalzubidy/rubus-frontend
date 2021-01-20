@@ -20,6 +20,7 @@ const Navbar = () => {
             <button onClick={handleOnClick} name="projectRequests">Project Requests</button>
             <button onClick={handleOnClick} name="projectManagement">Project Management</button>
             <button onClick={handleOnClick} name="accountSettings">Account Settings</button>
+            <button onClick={handleOnClick} name="home">Home Page</button>
         </div>
     );
 }
