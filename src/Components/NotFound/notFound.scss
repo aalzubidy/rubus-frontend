@@ -1,0 +1,20 @@
+.notFoundContainer {
+  width: 100%;
+  height: 100vh;
+
+  .notFoundBox {
+    position: absolute;
+    height: 60vh;
+    width: 800px;
+    top: 20%;
+    left: 30%;
+    // margin: -300px 0 0 -400px;
+    border: 1px solid rgb(240, 240, 240);
+    padding: 3%;
+    text-align: center;
+
+    h1 {
+      margin-bottom: 100px;
+    }
+  }
+}
