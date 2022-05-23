@@ -1,0 +1,38 @@
+.homepage {
+  .background {
+    background-image: url("../../Images/landscape-lowres.jpg");
+    height: 100vh;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+
+    .introduction {
+      height: 600px;
+      background-color: bisque;
+      box-shadow: 6px 1px 6px grey;
+      opacity: 90%;
+      color: black;
+      padding: 20px;
+
+      .introText {
+        border-right: 1px solid black;
+        text-align: center;
+
+        .title h1 {
+          margin-top: 80px;
+          margin-bottom: 16px;
+          letter-spacing: 6px;
+          font-size: 3em;
+        }
+
+        .features {
+          margin-top: 120px;
+        }
+      }
+    }
+  }
+}
