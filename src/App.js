@@ -1,6 +1,8 @@
 // import logo from './logo.svg';
 // import './App.css';
 import Router from './AppRouter';
+import { ProjectProvider } from './Contexts/ProjectContext';
+import { AlertsProvider } from './Contexts/AlertsContext';
 
 // Supertokens Import
 import SuperTokens from "supertokens-auth-react";
@@ -42,6 +44,16 @@ SuperTokens.init({
       },
       emailVerificationFeature: {
         mode: "REQUIRED"
+      },
+      getRedirectionURL: async (context) => {
+        if (context.action === "SUCCESS") {
+          if (context.redirectToPath !== undefined) {
+            // we are navigating back to where the user was before they authenticated
+            return context.redirectToPath;
+          }
+          return "/account";
+        }
+        return undefined;
       }
     }),
     Session.init()
@@ -51,7 +63,11 @@ SuperTokens.init({
 function App() {
   return (
     <div className="App">
-      <Router />
+      <ProjectProvider>
+        <AlertsProvider>
+          <Router />
+        </AlertsProvider>
+      </ProjectProvider>
     </div>
   );
 }

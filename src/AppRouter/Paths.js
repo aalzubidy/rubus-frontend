@@ -1,5 +1,6 @@
 const Paths = {
   home: '/',
+  account: '/account',
   signout: 'signout',
 };
 

@@ -1,20 +1,15 @@
 .homepage {
   .background {
-    background-image: url("../../Images/landscape-lowres.jpg");
     height: 100vh;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
     display: flex;
     justify-content: center;
     align-items: center;
-
+    background-color: #0093E9;
+    background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%);
 
     .introduction {
-      height: 600px;
-      background-color: bisque;
-      box-shadow: 6px 1px 6px grey;
-      opacity: 90%;
+      height: 800px;
+      background-color: white;
       color: black;
       padding: 20px;
 
@@ -23,14 +18,28 @@
         text-align: center;
 
         .title h1 {
-          margin-top: 80px;
-          margin-bottom: 16px;
+          margin-top: 40px;
+          margin-bottom: 24px;
           letter-spacing: 6px;
           font-size: 3em;
         }
 
         .features {
-          margin-top: 120px;
+          margin-top: 200px;
+        }
+      }
+
+      .loginRegisterButtons {
+        justify-content: center;
+        align-items: center;
+        display: flex;
+
+        .row {
+          width: 80%;
+        }
+
+        button {
+          margin-top: 26px;
         }
       }
     }

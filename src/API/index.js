@@ -1,13 +1,25 @@
 import CustomAxios from "./CustomAxios";
 
 const API = {
-  getAllCompanies: async (token = '') => {
-    try {
-      const response = await CustomAxios(token).get('/companies');
-      return response;
-    } catch (error) {
-      throw error;
-    }
+  projects: {
+    getAll: async () => {
+      try {
+        const response = await CustomAxios().get('/projects');
+        return response;
+      } catch (error) {
+        throw error;
+      }
+    },
+  },
+  user: {
+    getUser: async () => {
+      try {
+        const response = await CustomAxios().get('/user');
+        return response;
+      } catch (error) {
+        throw error;
+      }
+    },
   },
   getAllPositions: async (token) => {
     try {
