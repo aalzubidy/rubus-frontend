@@ -15,9 +15,14 @@ export function ProjectProvider(props) {
     else return false;
   }
 
+  const clearProject = () => {
+    localStorage.removeItem('RubusSelectedProject');
+    setProject({ id: '', title: '' });
+  }
+
   return (
     <ProjectContext.Provider value={{ project }}>
-      <ProjectActionsContext.Provider value={{ setNewProject }}>
+      <ProjectActionsContext.Provider value={{ setNewProject, clearProject }}>
         {props.children}
       </ProjectActionsContext.Provider>
     </ProjectContext.Provider>

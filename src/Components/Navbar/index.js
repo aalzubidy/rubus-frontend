@@ -7,7 +7,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import CodeIcon from '@mui/icons-material/Code';
 import LogoutIcon from '@mui/icons-material/Logout';
 import AccountTreeIcon from '@mui/icons-material/AccountTree';
-import { ProjectContext } from '../../Contexts/ProjectContext';
+import { ProjectContext, ProjectActionsContext } from '../../Contexts/ProjectContext';
 import Paths from '../../AppRouter/Paths';
 import { Tooltip } from '@mui/material';
 import SwitchProject from '../SwitchProject';
@@ -21,6 +21,7 @@ const Navbar = () => {
 
     // Handle selected project
     const { project } = useContext(ProjectContext);
+    const { clearProject } = useContext(ProjectActionsContext);
     const [switchProjectDialog, setSwitchProjectDialog] = useState(false);
     const [newProjectDialog, setNewProjectDialog] = useState(false);
 
@@ -31,6 +32,7 @@ const Navbar = () => {
 
     const handleLogout = async (evt) => {
         evt.preventDefault();
+        clearProject();
         await signOut();
         navigate('/', { location, replace: true });
     }
