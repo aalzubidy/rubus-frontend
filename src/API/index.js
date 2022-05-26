@@ -10,6 +10,14 @@ const API = {
         throw error;
       }
     },
+    newProject: async (body) => {
+      try {
+        const response = await CustomAxios().post('/projects', body);
+        return response;
+      } catch (error) {
+        throw error;
+      }
+    },
   },
   user: {
     getUser: async () => {
@@ -20,14 +28,6 @@ const API = {
         throw error;
       }
     },
-  },
-  getAllPositions: async (token) => {
-    try {
-      const response = await CustomAxios(token).get('/positions');
-      return response;
-    } catch (error) {
-      throw error;
-    }
   },
   posts: {
     getAll: async (body, token = '') => {

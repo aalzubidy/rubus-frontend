@@ -11,7 +11,7 @@ import { ProjectContext, ProjectActionsContext } from '../../Contexts/ProjectCon
 import Paths from '../../AppRouter/Paths';
 import { Tooltip } from '@mui/material';
 import SwitchProject from '../SwitchProject';
-// import NewProject from '../NewProject';
+import NewProject from '../NewProject';
 import './navbar.scss';
 
 const Navbar = () => {
@@ -91,7 +91,7 @@ const Navbar = () => {
 
             <SwitchProject switchProjectDialog={switchProjectDialog} setSwitchProjectDialog={setSwitchProjectDialog} />
 
-            {/* <NewProject newProjectDialog={newProjectDialog} setNewProjectDialog={setNewProjectDialog} /> */}
+            <NewProject newProjectDialog={newProjectDialog} setNewProjectDialog={setNewProjectDialog} />
         </div>
     );
 }
