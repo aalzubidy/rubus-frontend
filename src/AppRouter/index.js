@@ -9,7 +9,6 @@ import Navbar from '../Components/Navbar';
 // Supertokens
 import { getSuperTokensRoutesForReactRouterDom } from "supertokens-auth-react";
 import { EmailPasswordAuth } from "supertokens-auth-react/recipe/emailpassword";
-import ProjectSelector from '../Components/ProjectSelector';
 
 const AppRouter = () => {
   return (
@@ -22,7 +21,6 @@ const AppRouter = () => {
         </EmailPasswordAuth>} />
         <Route path={Paths.account} element={<EmailPasswordAuth key='account' >
           <Navbar />
-          <ProjectSelector />
           <Account />
         </EmailPasswordAuth>} />
         <Route path='*' element={<NotFound />} />

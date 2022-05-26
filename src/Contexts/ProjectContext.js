@@ -5,10 +5,13 @@ export const ProjectContext = createContext();
 export const ProjectActionsContext = createContext();
 
 export function ProjectProvider(props) {
-  const [project, setProject] = useState({ id: '', title: '' });
+  const [project, setProject] = useState(JSON.parse(localStorage.getItem('RubusSelectedProject')) || { id: '', title: '' });
 
   const setNewProject = (newProject) => {
-    if (newProject && newProject.id && newProject.title) setProject(newProject);
+    if (newProject && newProject.id && newProject.title) {
+      setProject(newProject);
+      localStorage.setItem('RubusSelectedProject', JSON.stringify(newProject));
+    }
     else return false;
   }
 

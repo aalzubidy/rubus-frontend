@@ -1,0 +1,21 @@
+.switchProjectContainer {
+  position: absolute;
+  width: 60%;
+  height: 160px;
+  top: 20%;
+  left: 20%;
+  background-color: white;
+  box-shadow: 0px 0px 30px 10px rgb(201, 201, 201);
+  padding: 1%;
+
+  .projectSuggestions {
+    margin-top: 20px;
+    margin-bottom: 30px;
+  }
+
+  .actions {
+    text-align: right;
+    margin-top: 2%;
+    margin-bottom: 2%;
+  }
+}

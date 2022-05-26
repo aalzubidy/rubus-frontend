@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { signOut } from 'supertokens-auth-react/recipe/emailpassword';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
@@ -9,13 +9,20 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import AccountTreeIcon from '@mui/icons-material/AccountTree';
 import { ProjectContext } from '../../Contexts/ProjectContext';
 import Paths from '../../AppRouter/Paths';
-import './navbar.scss';
 import { Tooltip } from '@mui/material';
+import SwitchProject from '../SwitchProject';
+// import NewProject from '../NewProject';
+import './navbar.scss';
 
 const Navbar = () => {
+    // Handle navigation
     const location = useLocation();
     const navigate = useNavigate();
+
+    // Handle selected project
     const { project } = useContext(ProjectContext);
+    const [switchProjectDialog, setSwitchProjectDialog] = useState(false);
+    const [newProjectDialog, setNewProjectDialog] = useState(false);
 
     const handleOnClick = (evt, navigateTo) => {
         evt.preventDefault();
@@ -70,8 +77,8 @@ const Navbar = () => {
                                         <li><a className='dropdown-item' href={Paths.account}>Project's Requests</a></li>
                                         <li><a className='dropdown-item' href={Paths.account}>Project's Settings</a></li>
                                         <li><hr className='dropdown-divider' /></li>
-                                        <li><a className='dropdown-item' href={Paths.account}>New Project</a></li>
-                                        <li><a className='dropdown-item' href={Paths.account}>Switch Project</a></li>
+                                        <li><button className='dropdown-item' onClick={() => setNewProjectDialog(true)}>New Project</button></li>
+                                        <li><button className='dropdown-item' onClick={() => setSwitchProjectDialog(true)}>Switch Project</button></li>
                                     </ul>
                                 </div>
                             </div>
@@ -79,6 +86,10 @@ const Navbar = () => {
                     </div>
                 </div>
             </nav>
+
+            <SwitchProject switchProjectDialog={switchProjectDialog} setSwitchProjectDialog={setSwitchProjectDialog} />
+
+            {/* <NewProject newProjectDialog={newProjectDialog} setNewProjectDialog={setNewProjectDialog} /> */}
         </div>
     );
 }
