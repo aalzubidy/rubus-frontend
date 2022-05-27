@@ -8,6 +8,7 @@ import CodeIcon from '@mui/icons-material/Code';
 import LogoutIcon from '@mui/icons-material/Logout';
 import AccountTreeIcon from '@mui/icons-material/AccountTree';
 import { ProjectContext, ProjectActionsContext } from '../../Contexts/ProjectContext';
+import { AlertsContext } from '../../Contexts/AlertsContext';
 import Paths from '../../AppRouter/Paths';
 import { Tooltip } from '@mui/material';
 import SwitchProject from '../SwitchProject';
@@ -15,6 +16,9 @@ import NewProject from '../NewProject';
 import './navbar.scss';
 
 const Navbar = () => {
+    // Settings
+    const { alertMsg } = useContext(AlertsContext);
+
     // Handle navigation
     const location = useLocation();
     const navigate = useNavigate();
@@ -25,9 +29,14 @@ const Navbar = () => {
     const [switchProjectDialog, setSwitchProjectDialog] = useState(false);
     const [newProjectDialog, setNewProjectDialog] = useState(false);
 
-    const handleOnClick = (evt, navigateTo) => {
+    const handleOnClick = (evt, navigateTo, requireSelectedProject = false) => {
         evt.preventDefault();
-        navigate(navigateTo, { location, replace: true });
+        if (requireSelectedProject && (!project || !project.id)) {
+            alertMsg('error', 'you must select a working project first');
+            return;
+        } else {
+            navigate(navigateTo, { location, replace: true });
+        }
     }
 
     const handleLogout = async (evt) => {
@@ -75,12 +84,12 @@ const Navbar = () => {
                                         {project ? project.title : ''} <AccountTreeIcon sx={{ fontSize: '26px' }} />
                                     </button>
                                     <ul className='dropdown-menu dropdown-menu-end' aria-labelledby='navbarDropdown'>
-                                        <li><a className='dropdown-item' href={Paths.account}>Project's Users</a></li>
+                                        <li><a className='dropdown-item' onClick={(evt) => handleOnClick(evt, Paths.projectUsers, true)} href={Paths.projectUsers}>Project's Users</a></li>
                                         <li><a className='dropdown-item' href={Paths.account}>Project's Requests</a></li>
                                         <li><a className='dropdown-item' href={Paths.account}>Project's Settings</a></li>
                                         <li><hr className='dropdown-divider' /></li>
                                         <li><button className='dropdown-item' onClick={() => setNewProjectDialog(true)}>New Project</button></li>
-                                        <li><button className='dropdown-item' onClick={() => setSwitchProjectDialog(true)}>Switch Project</button></li>
+                                        <li><button className='dropdown-item' onClick={() => setSwitchProjectDialog(true)}>Select Working Project</button></li>
                                     </ul>
                                 </div>
                             </div>

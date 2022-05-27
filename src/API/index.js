@@ -18,11 +18,43 @@ const API = {
         throw error;
       }
     },
+    getProject: async (projectId) => {
+      try {
+        const response = await CustomAxios().get(`/projects/${projectId}`);
+        return response;
+      } catch (error) {
+        throw error;
+      }
+    },
+    addProjectUsers: async (projectId, body) => {
+      try {
+        const response = await CustomAxios().post(`/projects/${projectId}/addUsers`, body);
+        return response;
+      } catch (error) {
+        throw error;
+      }
+    },
+    deleteProjectUsers: async (projectId, body) => {
+      try {
+        const response = await CustomAxios().delete(`/projects/${projectId}/removeUsers`, body);
+        return response;
+      } catch (error) {
+        throw error;
+      }
+    },
   },
   user: {
     getUser: async () => {
       try {
         const response = await CustomAxios().get('/user');
+        return response;
+      } catch (error) {
+        throw error;
+      }
+    },
+    getUserByEmail: async (email) => {
+      try {
+        const response = await CustomAxios().get(`/user/email/${email}`);
         return response;
       } catch (error) {
         throw error;

@@ -3,6 +3,7 @@ import * as reactRouterDom from 'react-router-dom';
 import NotFound from '../Components/NotFound';
 import Paths from './Paths';
 import Account from '../Components/Account';
+import ProjectUsers from '../Components/ProjectUsers';
 import CheckHomepageAuth from './CheckHomepageAuth';
 import Navbar from '../Components/Navbar';
 
@@ -22,6 +23,10 @@ const AppRouter = () => {
         <Route path={Paths.account} element={<EmailPasswordAuth key='account' >
           <Navbar />
           <Account />
+        </EmailPasswordAuth>} />
+        <Route path={Paths.projectUsers} element={<EmailPasswordAuth key='projectUsers' >
+          <Navbar />
+          <ProjectUsers />
         </EmailPasswordAuth>} />
         <Route path='*' element={<NotFound />} />
       </Routes>

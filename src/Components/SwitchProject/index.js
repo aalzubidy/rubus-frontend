@@ -64,7 +64,7 @@ const SwitchProject = ({ switchProjectDialog, setSwitchProjectDialog }) => {
         <div className='row actions'>
           <div>
             <button className='btn btn-link' onClick={() => setSwitchProjectDialog(false)}>Cancel</button>
-            <button className='btn btn-outline-primary' onClick={handleSwitchProject}>Switch Project</button>
+            <button className='btn btn-outline-primary' onClick={handleSwitchProject}>Set Working Project</button>
           </div>
         </div>
       </div>
