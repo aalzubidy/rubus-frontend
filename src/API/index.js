@@ -42,6 +42,22 @@ const API = {
         throw error;
       }
     },
+    updateProject: async (projectId, body) => {
+      try {
+        const response = await CustomAxios().patch(`/projects/${projectId}`, body);
+        return response;
+      } catch (error) {
+        throw error;
+      }
+    },
+    deleteProject: async (projectId, body) => {
+      try {
+        const response = await CustomAxios().delete(`/projects/${projectId}`, body);
+        return response;
+      } catch (error) {
+        throw error;
+      }
+    },
   },
   user: {
     getUser: async () => {

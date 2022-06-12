@@ -29,12 +29,15 @@ const Navbar = () => {
     const [switchProjectDialog, setSwitchProjectDialog] = useState(false);
     const [newProjectDialog, setNewProjectDialog] = useState(false);
 
+    const [activeClass, setActiveClass] = useState(Paths.account);
+
     const handleOnClick = (evt, navigateTo, requireSelectedProject = false) => {
         evt.preventDefault();
         if (requireSelectedProject && (!project || !project.id)) {
             alertMsg('error', 'you must select a working project first');
             return;
         } else {
+            setActiveClass(navigateTo);
             navigate(navigateTo, { location, replace: true });
         }
     }
@@ -59,14 +62,14 @@ const Navbar = () => {
                     <div className='collapse navbar-collapse' id='navbarSupportedContent'>
                         <div className='me-auto'>
                             <div className='navbar-nav'>
-                                <Tooltip title='Query Converter'>
-                                    <a className='nav-link mx-2' onClick={(evt) => handleOnClick(evt, Paths.account)} href={Paths.account}>{<CompareArrowsIcon sx={{ fontSize: '26px' }} />}</a>
-                                </Tooltip>
                                 <Tooltip title='Search Databases'>
-                                    <a className='nav-link mx-2' onClick={(evt) => handleOnClick(evt, Paths.account)} href={Paths.account}>{<SearchIcon sx={{ fontSize: '26px' }} />}</a>
+                                    <a className={activeClass === Paths.searchDbs ? 'nav-link mx-2 active' : 'nav-link mx-2'} onClick={(evt) => handleOnClick(evt, Paths.account)} href={Paths.account}>{<SearchIcon sx={{ fontSize: '26px' }} />}</a>
+                                </Tooltip>
+                                <Tooltip title='Query Converter'>
+                                    <a className={activeClass === Paths.queryConverter ? 'nav-link mx-2 active' : 'nav-link mx-2'} onClick={(evt) => handleOnClick(evt, Paths.account)} href={Paths.account}>{<CompareArrowsIcon sx={{ fontSize: '26px' }} />}</a>
                                 </Tooltip>
                                 <Tooltip title='Account Settings'>
-                                    <a className='nav-link mx-2' onClick={(evt) => handleOnClick(evt, Paths.account)} href={Paths.account}>{<AccountCircleIcon sx={{ fontSize: '26px' }} />}</a>
+                                    <a className={activeClass === Paths.account ? 'nav-link mx-2 active' : 'nav-link mx-2'} onClick={(evt) => handleOnClick(evt, Paths.account)} href={Paths.account}>{<AccountCircleIcon sx={{ fontSize: '26px' }} />}</a>
                                 </Tooltip>
                                 <Tooltip title='Source Code & Contribution'>
                                     <a className='nav-link mx-2' href='https://github.com/aalzubidy/rubus-frontend' target='_blank' rel='noreferrer'>{<CodeIcon sx={{ fontSize: '26px' }} />}</a>
@@ -86,7 +89,7 @@ const Navbar = () => {
                                     <ul className='dropdown-menu dropdown-menu-end' aria-labelledby='navbarDropdown'>
                                         <li><a className='dropdown-item' onClick={(evt) => handleOnClick(evt, Paths.projectUsers, true)} href={Paths.projectUsers}>Project's Users</a></li>
                                         <li><a className='dropdown-item' href={Paths.account}>Project's Requests</a></li>
-                                        <li><a className='dropdown-item' href={Paths.account}>Project's Settings</a></li>
+                                        <li><a className='dropdown-item' onClick={(evt) => handleOnClick(evt, Paths.projectSettings, true)} href={Paths.projectSettings}>Project's Settings</a></li>
                                         <li><hr className='dropdown-divider' /></li>
                                         <li><button className='dropdown-item' onClick={() => setNewProjectDialog(true)}>New Project</button></li>
                                         <li><button className='dropdown-item' onClick={() => setSwitchProjectDialog(true)}>Select Working Project</button></li>

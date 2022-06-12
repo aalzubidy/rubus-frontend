@@ -1,0 +1,23 @@
+.projectSettings {
+  margin-top: 64px;
+  display: flex;
+  justify-content: center;
+
+  .projectInformationDiv {
+    text-align: center;
+    margin-top: 60px;
+    border: 1px solid black;
+    padding: 100px;
+    width: 800px;
+
+    .projectInformationInput {
+      width: 460px;
+      display: inline;
+      margin-bottom: 16px;
+    }
+
+    hr {
+      margin: 86px 0px;
+    }
+  }
+}
